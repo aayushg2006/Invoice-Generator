@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Invoice - Invoice Generator</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>InvGen</h2>
+            </div>
+            <ul class="sidebar-nav">
+                <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="products.html"><i class="fas fa-box"></i> Products</a></li>
+                <li class="active"><a href="invoice-create.html"><i class="fas fa-plus"></i> Create Invoice</a></li>
+                <li><a href="invoices-list.html"><i class="fas fa-list"></i> View Invoices</a></li>
+                <li><a href="customers.html"><i class="fas fa-users"></i> Customers</a></li>
+                <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Create New Invoice</h2>
+                </div>
+                <div class="card-body">
+                    <div class="invoice-details">
+                        <div class="form-group">
+                            <label for="customerName">Customer Name</label>
+                            <input type="text" id="customerName" placeholder="Enter customer name">
+                        </div>
+                        <div class="form-group">
+                            <label for="invoiceNumber">Invoice Number</label>
+                            <input type="text" id="invoiceNumber" value="INV-2025-001" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="issueDate">Issue Date</label>
+                            <input type="date" id="issueDate">
+                        </div>
+                    </div>
+
+                    <table class="product-table invoice-items-table">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Total</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="invoice-items-body">
+                        </tbody>
+                    </table>
+                    <button id="addItemBtn" class="btn btn-secondary"><i class="fas fa-plus"></i> Add Item</button>
+
+                    <div class="invoice-totals">
+                        <div><span>Subtotal:</span> <span id="subtotal">₹0.00</span></div>
+                        <div><span>GST (5%):</span> <span id="gst">₹0.00</span></div>
+                        <div class="grand-total"><span>Grand Total:</span> <span id="grandTotal">₹0.00</span></div>
+                    </div>
+                     <button class="btn btn-primary" style="margin-top: 20px;"><i class="fas fa-save"></i> Save and Generate</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <template id="invoice-item-template">
+        <tr>
+            <td><select class="item-select"></select></td>
+            <td><input type="number" class="item-qty" value="1" min="1"></td>
+            <td><input type="number" class="item-price" readonly></td>
+            <td class="item-total">₹0.00</td>
+            <td><button class="btn-delete"><i class="fas fa-trash"></i></button></td>
+        </tr>
+    </template>
+
+    <script src="js/products.js"></script>
+    <script src="js/invoice-create.js"></script>
+</body>
+</html>

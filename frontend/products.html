@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Products - Invoice Generator</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>InvGen</h2>
+            </div>
+            <ul class="sidebar-nav">
+                <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li class = "active"><a href="products.html"><i class="fas fa-box"></i> Products</a></li>
+                <li><a href="invoice-create.html"><i class="fas fa-plus"></i> Create Invoice</a></li>
+                <li><a href="invoices-list.html"><i class="fas fa-list"></i> View Invoices</a></li>
+                <li><a href="customers.html"><i class="fas fa-users"></i> Customers</a></li>
+                <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Manage Products</h2>
+                    <button class="btn btn-primary"><i class="fas fa-plus"></i> Add New Product</button>
+                </div>
+                <div class="card-body">
+                    <table class="product-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Product Name</th>
+                                <th>Selling Price</th>
+                                <th>Category</th>
+                                <th>GST %</th>
+                            </tr>
+                        </thead>
+                        <tbody id="product-table-body">
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/products.js"></script>
+</body>
+</html>
