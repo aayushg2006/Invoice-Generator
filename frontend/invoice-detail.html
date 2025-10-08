@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Invoice - Invoice Generator</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+</head>
+    <div class="app-layout">
+        <aside class="sidebar">
+            </aside>
+
+        <main class="main-content">
+            <div class="invoice-actions">
+                <a href="invoices-list.html" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back to Invoices</a>
+                <button class="btn btn-primary" onclick="window.print()"><i class="fas fa-print"></i> Print</button>
+            </div>
+            <div class="card" id="invoice-paper">
+                <div class="card-body" id="invoice-content">
+                    <p>Loading invoice details...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/invoice-detail.js"></script>
+</body>
+</html>

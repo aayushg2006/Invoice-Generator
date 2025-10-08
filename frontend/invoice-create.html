@@ -34,19 +34,20 @@
                 <div class="card-header">
                     <h2>Create New Invoice</h2>
                 </div>
-                <div class="card-body">
+                <form id="invoiceForm" class="card-body">
                     <div class="invoice-details">
                         <div class="form-group">
                             <label for="customerName">Customer Name</label>
-                            <input type="text" id="customerName" placeholder="Enter customer name">
+                            <input type="text" id="customerName" list="customer-list" placeholder="Select or type a customer name" required>
+                            <datalist id="customer-list"></datalist>
                         </div>
                         <div class="form-group">
                             <label for="invoiceNumber">Invoice Number</label>
-                            <input type="text" id="invoiceNumber" value="INV-2025-001" readonly>
+                            <input type="text" id="invoiceNumber" value="INV-..." readonly>
                         </div>
                         <div class="form-group">
                             <label for="issueDate">Issue Date</label>
-                            <input type="date" id="issueDate">
+                            <input type="date" id="issueDate" required>
                         </div>
                     </div>
 
@@ -63,30 +64,38 @@
                         <tbody id="invoice-items-body">
                         </tbody>
                     </table>
-                    <button id="addItemBtn" class="btn btn-secondary"><i class="fas fa-plus"></i> Add Item</button>
+                    <button type="button" id="addItemBtn" class="btn btn-secondary"><i class="fas fa-plus"></i> Add Item</button>
+
+                    <div class="form-group" style="max-width: 250px; margin-top: 20px;">
+                        <label for="paymentStatus">Payment Status</label>
+                        <select id="paymentStatus" required>
+                            <option value="PAID">Paid</option>
+                            <option value="PENDING" selected>Pending</option>
+                        </select>
+                    </div>
 
                     <div class="invoice-totals">
                         <div><span>Subtotal:</span> <span id="subtotal">₹0.00</span></div>
-                        <div><span>GST (5%):</span> <span id="gst">₹0.00</span></div>
+                        <div><span>GST:</span> <span id="gst">₹0.00</span></div>
                         <div class="grand-total"><span>Grand Total:</span> <span id="grandTotal">₹0.00</span></div>
                     </div>
-                     <button class="btn btn-primary" style="margin-top: 20px;"><i class="fas fa-save"></i> Save and Generate</button>
-                </div>
+                     <button type="submit" class="btn btn-primary" style="margin-top: 20px;"><i class="fas fa-save"></i> Save and Generate</button>
+                </form>
             </div>
         </main>
     </div>
 
     <template id="invoice-item-template">
         <tr>
-            <td><select class="item-select"></select></td>
-            <td><input type="number" class="item-qty" value="1" min="1"></td>
+            <td><select class="item-select" required></select></td>
+            <td><input type="number" class="item-qty" value="1" min="1" required></td>
             <td><input type="number" class="item-price" readonly></td>
             <td class="item-total">₹0.00</td>
-            <td><button class="btn-delete"><i class="fas fa-trash"></i></button></td>
+            <td><button type="button" class="btn-delete"><i class="fas fa-trash"></i></button></td>
         </tr>
     </template>
 
-    <script src="js/products.js"></script>
+    <script src="js/api.js"></script>
     <script src="js/invoice-create.js"></script>
 </body>
 </html>

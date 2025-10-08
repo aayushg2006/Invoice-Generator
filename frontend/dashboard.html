@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Products - Invoice Generator</title>
+    <title>Dashboard - Invoice Generator</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,6 +40,15 @@
                         <span class="card-value" id="total-revenue">₹0.00</span>
                     </div>
                 </div>
+                
+                <div class="stat-card">
+                    <div class="card-icon" style="background-color: #fef9c3;"><i class="fas fa-percent" style="color: #ca8a04;"></i></div>
+                    <div class="card-info">
+                        <span class="card-title">GST Payable</span>
+                        <span class="card-value" id="total-gst-payable">₹0.00</span>
+                    </div>
+                </div>
+
                 <div class="stat-card">
                     <div class="card-icon" style="background-color: #ffedd5;"><i class="fas fa-file-invoice-dollar" style="color: #f97316;"></i></div>
                     <div class="card-info">
@@ -78,6 +87,7 @@
         </main>
     </div>
 
+    <script src="js/api.js"></script> 
     <script src="js/dashboard.js"></script>
 </body>
 </html>

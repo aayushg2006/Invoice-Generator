@@ -1,47 +1,34 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        // Step 1: Make a single API call to get all dashboard statistics
+        const stats = await fetchWithAuth('/dashboard/stats');
 
-    // Mock data for the dashboard
-    const mockInvoices = [
-        { id: 'INV-001', customer: 'Rohan Sharma', amount: 550.00, status: 'Paid' },
-        { id: 'INV-002', customer: 'Priya Patel', amount: 1200.50, status: 'Pending' },
-        { id: 'INV-003', customer: 'Amit Singh', amount: 875.00, status: 'Paid' },
-        { id: 'INV-004', customer: 'Sneha Reddy', amount: 2500.00, status: 'Pending' },
-    ];
+        // Step 2: Populate all the stats cards from the response
+        document.getElementById('total-revenue').textContent = `₹${stats.totalRevenue.toFixed(2)}`;
+        document.getElementById('total-gst-payable').textContent = `₹${stats.totalGstPayable.toFixed(2)}`;
+        document.getElementById('invoices-due').textContent = stats.invoicesDue;
+        document.getElementById('invoices-paid').textContent = stats.invoicesPaid;
 
-    // Function to populate the stats cards
-    function populateStats() {
-        const totalRevenue = mockInvoices
-            .filter(inv => inv.status === 'Paid')
-            .reduce((sum, inv) => sum + inv.amount, 0);
-
-        const invoicesDue = mockInvoices.filter(inv => inv.status === 'Pending').length;
-        const invoicesPaid = mockInvoices.filter(inv => inv.status === 'Paid').length;
-
-        document.getElementById('total-revenue').textContent = `₹${totalRevenue.toFixed(2)}`;
-        document.getElementById('invoices-due').textContent = invoicesDue;
-        document.getElementById('invoices-paid').textContent = invoicesPaid;
-    }
-
-    // Function to populate the recent invoices table
-    function populateRecentInvoices() {
+        // Step 3: Fetch recent invoices separately to populate the table
+        const recentInvoices = await fetchWithAuth('/invoices');
         const tableBody = document.getElementById('recent-invoices-body');
-        tableBody.innerHTML = ''; // Clear existing rows
-
-        mockInvoices.forEach(invoice => {
-            const statusClass = invoice.status === 'Paid' ? 'status-paid' : 'status-pending';
+        tableBody.innerHTML = '';
+        
+        // Show the 5 most recent invoices
+        recentInvoices.slice(0, 5).forEach(invoice => {
+            const statusClass = invoice.status === 'PAID' ? 'status-paid' : 'status-pending';
             const row = `
                 <tr>
-                    <td>${invoice.id}</td>
-                    <td>${invoice.customer}</td>
-                    <td>₹${invoice.amount.toFixed(2)}</td>
+                    <td>${invoice.invoiceNumber}</td>
+                    <td>${invoice.customerName}</td>
+                    <td>₹${invoice.totalAmount.toFixed(2)}</td>
                     <td><span class="status-badge ${statusClass}">${invoice.status}</span></td>
                 </tr>
             `;
             tableBody.innerHTML += row;
         });
-    }
 
-    // Call the functions to load the dashboard data
-    populateStats();
-    populateRecentInvoices();
+    } catch (error) {
+        // Errors from fetchWithAuth (like session expired) are handled globally
+    }
 });
