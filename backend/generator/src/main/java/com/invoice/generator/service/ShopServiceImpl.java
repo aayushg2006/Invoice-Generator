@@ -25,16 +25,17 @@ public class ShopServiceImpl {
         return mapToDto(user.getShop());
     }
 
-    public Shop updateShopSettings(ShopSettingsDto settingsDto, String username) {
+    public ShopSettingsDto updateShopSettings(ShopSettingsDto settingsDto, String username) { // Return DTO
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        
+
         Shop shopToUpdate = user.getShop();
         shopToUpdate.setShopName(settingsDto.getShopName());
         shopToUpdate.setGstin(settingsDto.getGstin());
         shopToUpdate.setAddress(settingsDto.getAddress());
-        
-        return shopRepository.save(shopToUpdate);
+
+        Shop updatedShop = shopRepository.save(shopToUpdate); // Save the shop
+        return mapToDto(updatedShop); // Map the final result to a DTO and return it
     }
 
     // Helper method to convert a Shop entity to a DTO
@@ -43,6 +44,7 @@ public class ShopServiceImpl {
         dto.setShopName(shop.getShopName());
         dto.setGstin(shop.getGstin());
         dto.setAddress(shop.getAddress());
+        dto.setLogoPath(shop.getLogoPath()); // <-- ADD THIS LINE
         return dto;
-    }
+}
 }

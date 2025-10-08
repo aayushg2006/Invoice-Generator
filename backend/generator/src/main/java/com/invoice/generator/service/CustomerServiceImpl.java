@@ -41,21 +41,23 @@ public class CustomerServiceImpl {
                 .stream().map(this::mapToDto).collect(Collectors.toList());
     }
     
-    @Transactional // <-- THE FIX IS HERE
-    public Customer updateCustomer(Long customerId, CustomerDto customerDto, String username) {
+    @Transactional
+    public CustomerDto updateCustomer(Long customerId, CustomerDto customerDto, String username) { // Return CustomerDto
         User user = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
         Customer customerToUpdate = customerRepository.findById(customerId).orElseThrow(() -> new RuntimeException("Customer not found"));
 
         // Security check
         if (!customerToUpdate.getShop().getId().equals(user.getShop().getId())) {
-            throw new SecurityException("User not authorized to update this customer.");
+        throw new SecurityException("User not authorized to update this customer.");
         }
 
         customerToUpdate.setName(customerDto.getName());
         customerToUpdate.setPhoneNumber(customerDto.getPhoneNumber());
         customerToUpdate.setEmail(customerDto.getEmail());
-        return customerRepository.save(customerToUpdate);
+        Customer savedCustomer = customerRepository.save(customerToUpdate);
+        return mapToDto(savedCustomer); // Map to DTO before returning
     }
+
 
     @Transactional // Also good practice to add it here
     public void deleteCustomer(Long customerId, String username) {

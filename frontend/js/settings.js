@@ -14,14 +14,14 @@ document.addEventListener('DOMContentLoaded', async () => {
             shopNameInput.value = shop.shopName || '';
             gstinInput.value = shop.gstin || '';
             addressTextarea.value = shop.address || '';
-            if (shop.logoPath) {
-                // Construct the full URL to the logo on the backend and add a timestamp to prevent caching
+            if (shop.logoPath) { // This line now uses the 'logoPath' from the DTO
+            // Construct the full URL to the logo on the backend and add a timestamp to prevent caching
                 logoPreview.src = `http://localhost:8080${shop.logoPath}?t=${new Date().getTime()}`;
-            }
-        } catch (error) {
-            // Error is handled by the fetchWithAuth function
         }
+    } catch (error) {
+        // Error is handled by the fetchWithAuth function
     }
+}
 
     // --- Event listener for when a new logo file is selected ---
     logoUploadInput.addEventListener('change', (event) => {

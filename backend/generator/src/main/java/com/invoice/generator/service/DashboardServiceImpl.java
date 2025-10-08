@@ -24,7 +24,9 @@ public class DashboardServiceImpl {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        List<Invoice> allInvoices = invoiceRepository.findAllByShop(user.getShop());
+        // *** THIS IS THE FIX ***
+        // Use the new method name that includes sorting
+        List<Invoice> allInvoices = invoiceRepository.findAllByShopOrderByIssueDateDesc(user.getShop());
         
         DashboardStatsDto stats = new DashboardStatsDto();
 

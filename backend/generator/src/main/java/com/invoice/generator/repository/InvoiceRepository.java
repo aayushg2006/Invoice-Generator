@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
     
-    // Add this method to find all invoices for a given shop
-    List<Invoice> findAllByShop(Shop shop);
+    // This method name tells Spring to sort the results by the 'issueDate' field in descending order.
+    List<Invoice> findAllByShopOrderByIssueDateDesc(Shop shop);
 }

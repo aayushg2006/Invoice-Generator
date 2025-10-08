@@ -4,7 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List; 
+import java.util.ArrayList; // IMPORT THIS
+import java.util.List;
 
 @Data
 @Entity
@@ -45,5 +46,5 @@ public class Invoice {
 
     // This relationship connects the invoice to its line items
     @OneToMany(mappedBy = "invoice", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<InvoiceItem> invoiceItems;
+    private List<InvoiceItem> invoiceItems = new ArrayList<>(); // <-- INITIALIZE THE LIST
 }

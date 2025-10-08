@@ -31,8 +31,8 @@ public class CustomerController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Customer> updateCustomer(@PathVariable Long id, @RequestBody CustomerDto customerDto, @AuthenticationPrincipal UserDetails userDetails) {
-        Customer updatedCustomer = customerService.updateCustomer(id, customerDto, userDetails.getUsername());
+    public ResponseEntity<CustomerDto> updateCustomer(@PathVariable Long id, @RequestBody CustomerDto customerDto, @AuthenticationPrincipal UserDetails userDetails) { // Return CustomerDto
+        CustomerDto updatedCustomer = customerService.updateCustomer(id, customerDto, userDetails.getUsername()); // Receive CustomerDto
         return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
     }
 

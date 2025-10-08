@@ -24,8 +24,8 @@ public class SettingsController {
     }
 
     @PutMapping
-    public ResponseEntity<Shop> updateShopSettings(@RequestBody ShopSettingsDto settingsDto, @AuthenticationPrincipal UserDetails userDetails) {
-        Shop updatedShop = shopService.updateShopSettings(settingsDto, userDetails.getUsername());
+    public ResponseEntity<ShopSettingsDto> updateShopSettings(@RequestBody ShopSettingsDto settingsDto, @AuthenticationPrincipal UserDetails userDetails) { // Return DTO
+        ShopSettingsDto updatedShop = shopService.updateShopSettings(settingsDto, userDetails.getUsername()); // Receive DTO
         return new ResponseEntity<>(updatedShop, HttpStatus.OK);
     }
 }

@@ -9,12 +9,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     let products = [];
     let customers = [];
     
-    // Fetch products and customers to populate dropdowns
     try {
         products = await fetchWithAuth('/products');
         customers = await fetchWithAuth('/customers');
 
-        // Populate the customer datalist for autocomplete
         customers.forEach(customer => {
             const option = document.createElement('option');
             option.value = customer.name;
@@ -65,7 +63,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('grandTotal').textContent = `₹${(subtotal + totalGst).toFixed(2)}`;
     }
 
-    // --- All Event Listeners ---
     addItemBtn.addEventListener('click', addNewItem);
 
     itemsTableBody.addEventListener('change', (e) => {
@@ -87,7 +84,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     });
 
-    // --- FORM SUBMISSION LOGIC ---
     invoiceForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
@@ -118,13 +114,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (existingCustomer) {
             invoiceData.customerId = existingCustomer.id;
         } else {
+            // UPDATED BLOCK
             invoiceData.newCustomerName = enteredCustomerName;
+            invoiceData.newCustomerPhone = document.getElementById('customerPhone').value;
+            invoiceData.newCustomerEmail = document.getElementById('customerEmail').value;
         }
 
         try {
-            // Use a raw fetch call to handle the file download response
-            const token = getToken(); // getToken() is from api.js
-            const response = await fetch(`${API_BASE_URL}/invoices`, { // API_BASE_URL is from api.js
+            const token = getToken();
+            const response = await fetch(`${API_BASE_URL}/invoices`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -138,7 +136,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 throw new Error(`Failed to create invoice: ${errorText}`);
             }
 
-            // --- PDF DOWNLOAD HANDLING ---
             const blob = await response.blob();
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -167,7 +164,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     });
 
-    // --- Initial Page Setup ---
     document.getElementById('issueDate').valueAsDate = new Date();
     addNewItem();
 });

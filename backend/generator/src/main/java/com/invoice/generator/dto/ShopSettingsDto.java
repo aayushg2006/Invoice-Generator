@@ -7,4 +7,5 @@ public class ShopSettingsDto {
     private String shopName;
     private String gstin;
     private String address;
+    private String logoPath;
 }
